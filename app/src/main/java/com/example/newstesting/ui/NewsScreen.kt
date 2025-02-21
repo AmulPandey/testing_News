@@ -1,5 +1,6 @@
 package com.example.newstesting.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -32,7 +33,15 @@ class NewsScreen : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycle)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        newsAdapter = NewsScreenAdapter()
+        newsAdapter = NewsScreenAdapter { article ->
+            val intent = Intent(this, NewsDetails::class.java)
+            intent.putExtra("news_title", article.title)
+            intent.putExtra("news_description", article.descripton)
+            intent.putExtra("news_image", article.urlToImage)
+            startActivity(intent)
+        }
+
+
         recyclerView.adapter = newsAdapter
 
         lifecycleScope.launch {
@@ -62,6 +71,7 @@ class NewsScreen : AppCompatActivity() {
                 Log.d("Paging", "First visible item position: $firstVisibleItem")
             }
         })
+
 
     }
 }

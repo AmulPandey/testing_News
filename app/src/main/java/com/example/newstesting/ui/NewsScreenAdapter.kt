@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.newstesting.R
 import com.example.newstesting.data.model.ApiArticle
 
-class NewsScreenAdapter :
+class NewsScreenAdapter(private val onItemClick: (ApiArticle) -> Unit) :
     PagingDataAdapter<ApiArticle, NewsScreenAdapter.NewsViewHolder>(ARTICLE_COMPARATOR) {
 
     class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -31,6 +31,10 @@ class NewsScreenAdapter :
         article?.let {
             Glide.with(holder.itemView.context).load(it.urlToImage).into(holder.image)
             holder.title.text = it.title
+
+            holder.itemView.setOnClickListener {
+                onItemClick(article)  // Call the click function with the clicked article
+            }
         }
     }
 
@@ -46,6 +50,8 @@ class NewsScreenAdapter :
 
         }
     }
+
+
 
 
 
