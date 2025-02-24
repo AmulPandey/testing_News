@@ -1,8 +1,5 @@
 package com.example.newstesting.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -11,7 +8,6 @@ import com.example.newstesting.data.model.ApiArticle
 import com.example.newstesting.repository.NewsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,10 +16,6 @@ class NewsViewModel @Inject constructor(private val repository: NewsRepository) 
     fun getNews(): Flow<PagingData<ApiArticle>> {
         return repository.getNews().cachedIn(viewModelScope)
     }
-
-
-     //shorter version
-     //val news: Flow<PagingData<ApiArticle>> = repository.getNews().cachedIn(viewModelScope)
 }
 
 //Without Paging

@@ -2,6 +2,8 @@ package com.example.newstesting.di
 
 import com.example.newstesting.network.ApiService
 import com.example.newstesting.repository.NewsRepository
+import com.example.newstesting.repository.NewsRepositoryImpl
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,9 +31,14 @@ object AppModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideNewsRepository(apiService: ApiService): NewsRepository {
-        return NewsRepository(apiService)
+    @Module
+    @InstallIn(SingletonComponent::class)
+    abstract class RepositoryModule {
+
+        @Binds
+        @Singleton
+        abstract fun bindNewsRepository(
+            newsRepositoryImpl: NewsRepositoryImpl
+        ): NewsRepository
     }
 }

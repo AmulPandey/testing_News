@@ -43,7 +43,6 @@ class NewsScreenAdapter(private val onItemClick: (ApiArticle) -> Unit) :
             override fun areItemsTheSame(oldItem: ApiArticle, newItem: ApiArticle): Boolean {
                 return oldItem.url == newItem.url
             }
-
             override fun areContentsTheSame(oldItem: ApiArticle, newItem: ApiArticle): Boolean {
                 return oldItem == newItem
             }
